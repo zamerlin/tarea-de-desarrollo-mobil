@@ -1,0 +1,25 @@
+import { StyleSheet } from 'react-native';
+
+export default StyleSheet.create({
+  safe: { flex: 1, backgroundColor: '#F8F7F4' },
+  header: { padding: 20, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+  back: { color: '#1D2B3A', fontWeight: '700', width: 44 },
+  title: { color: '#1D2B3A', fontSize: 21, fontWeight: '800' },
+  content: { padding: 20 },
+  item: { backgroundColor: '#FFF', borderRadius: 16, padding: 12, marginBottom: 12, flexDirection: 'row', alignItems: 'center', gap: 12 },
+  art: { width: 72, height: 72, borderRadius: 12, overflow: 'hidden', justifyContent: 'flex-end', padding: 8 },
+  image: { ...StyleSheet.absoluteFillObject, borderRadius: 12 },
+  info: { flex: 1, gap: 6 },
+  name: { color: '#1D2B3A', fontWeight: '800' },
+  price: { color: '#5B6670' },
+  remove: { color: '#D9663D', fontSize: 12, fontWeight: '700' },
+  summary: { marginTop: 16, padding: 20, backgroundColor: '#FFF', borderRadius: 16 },
+  line: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 12 },
+  label: { color: '#7D8790' },
+  total: { color: '#1D2B3A', fontWeight: '800' },
+  button: { backgroundColor: '#1D2B3A', borderRadius: 26, paddingVertical: 16, alignItems: 'center', marginTop: 12 },
+  buttonText: { color: '#FFF', fontWeight: '800' },
+  empty: { alignItems: 'center', paddingTop: 130 },
+  emptyTitle: { color: '#1D2B3A', fontSize: 19, fontWeight: '800' },
+  copy: { color: '#7D8790', marginTop: 8 },
+});
