@@ -1,12 +1,12 @@
 import { router } from 'expo-router';
-import { FlatList, Pressable, Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import ProductCard from '../../components/ProductCard';
-import { products, useStore } from '../../store';
+import ProductGrid from '../../components/ProductGrid';
+import { useStore } from '../../store';
 import styles from '../styles/productsStyles';
 
 export default function Products() {
-  const { cart } = useStore();
+  const { cart, products, loading, refreshing, error, refresh } = useStore();
 
   return (
     <SafeAreaView style={styles.safe}>
@@ -17,11 +17,12 @@ export default function Products() {
           <Text style={styles.cartText}>Carrito {cart.length > 0 ? `(${cart.length})` : ''}</Text>
         </Pressable>
       </View>
-      <FlatList
-        data={products}
-        numColumns={2}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <ProductCard product={item} />}
+      <ProductGrid
+        products={products}
+        loading={loading}
+        refreshing={refreshing}
+        error={error}
+        refresh={refresh}
         columnWrapperStyle={styles.row}
         contentContainerStyle={styles.content}
         ListHeaderComponent={<Text style={styles.count}>{products.length} productos disponibles</Text>}

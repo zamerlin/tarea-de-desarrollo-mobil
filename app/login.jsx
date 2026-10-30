@@ -9,12 +9,23 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
-  function submit() {
-    const result = login({ email, password });
-    if (!result.success) return setError(result.message);
+  async function submit() {
+    if (submitting) return;
+    setSubmitting(true);
     setError('');
-    router.replace('/(tabs)/perfil');
+
+    try {
+      const result = await login({ email, password });
+      if (!result.success) {
+        setError(result.message);
+        return;
+      }
+      router.replace('/(tabs)/perfil');
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -27,7 +38,9 @@ export default function Login() {
         {error ? <Text style={styles.error}>{error}</Text> : null}
         <TextInput style={styles.input} placeholder="Email @mail.com" autoCapitalize="none" keyboardType="email-address" value={email} onChangeText={setEmail} />
         <TextInput style={styles.input} placeholder="Contraseña" secureTextEntry value={password} onChangeText={setPassword} />
-        <Pressable style={styles.button} onPress={submit}><Text style={styles.buttonText}>Ingresar</Text></Pressable>
+        <Pressable style={styles.button} onPress={submit} disabled={submitting}>
+          <Text style={styles.buttonText}>{submitting ? 'Ingresando…' : 'Ingresar'}</Text>
+        </Pressable>
         <Pressable onPress={() => router.push('/registro')}><Text style={styles.link}>Crear una cuenta</Text></Pressable>
       </View>
     </SafeAreaView>

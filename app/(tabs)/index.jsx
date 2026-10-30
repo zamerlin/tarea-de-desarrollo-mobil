@@ -1,21 +1,22 @@
 import { Link } from 'expo-router';
-import { FlatList, Pressable, Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import ProductCard from '../../components/ProductCard';
-import { products, useStore } from '../../store';
+import ProductGrid from '../../components/ProductGrid';
+import { useStore } from '../../store';
 import styles from '../styles/homeStyles';
 
 export default function Index() {
-  const { cart } = useStore();
+  const { cart, products, loading, refreshing, error, refresh } = useStore();
   const featuredProducts = products.slice(0, 6);
 
   return (
     <SafeAreaView style={styles.safe}>
-      <FlatList
-        data={featuredProducts}
-        numColumns={2}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <ProductCard product={item} />}
+      <ProductGrid
+        products={featuredProducts}
+        loading={loading}
+        refreshing={refreshing}
+        error={error}
+        refresh={refresh}
         columnWrapperStyle={styles.row}
         contentContainerStyle={styles.content}
         ListHeaderComponent={(

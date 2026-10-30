@@ -8,12 +8,24 @@ export default function Registro() {
   const { register } = useStore();
   const [form, setForm] = useState({ name: '', email: '', password: '', confirmPassword: '' });
   const [error, setError] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
   function update(field, value) { setForm((current) => ({ ...current, [field]: value })); }
-  function submit() {
-    const result = register(form);
-    if (!result.success) return setError(result.message);
-    router.replace('/login');
+  async function submit() {
+    if (submitting) return;
+    setSubmitting(true);
+    setError('');
+
+    try {
+      const result = await register(form);
+      if (!result.success) {
+        setError(result.message);
+        return;
+      }
+      router.replace('/login');
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -27,7 +39,9 @@ export default function Registro() {
         <TextInput style={styles.input} placeholder="Email @mail.com" autoCapitalize="none" keyboardType="email-address" value={form.email} onChangeText={(value) => update('email', value)} />
         <TextInput style={styles.input} placeholder="Contraseña" secureTextEntry value={form.password} onChangeText={(value) => update('password', value)} />
         <TextInput style={styles.input} placeholder="Confirmar contraseña" secureTextEntry value={form.confirmPassword} onChangeText={(value) => update('confirmPassword', value)} />
-        <Pressable style={styles.button} onPress={submit}><Text style={styles.buttonText}>Registrarme</Text></Pressable>
+        <Pressable style={styles.button} onPress={submit} disabled={submitting}>
+          <Text style={styles.buttonText}>{submitting ? 'Creando cuenta…' : 'Registrarme'}</Text>
+        </Pressable>
       </View>
     </SafeAreaView>
   );

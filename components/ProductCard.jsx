@@ -4,15 +4,20 @@ import { useStore } from '../store';
 import styles from '../app/styles/homeStyles';
 
 export default function ProductCard({ product }) {
-  const { favorites, toggleFavorite, addToCart } = useStore();
+  const { favorites, favoritesLoading, toggleFavorite, addToCart } = useStore();
   const isFavorite = favorites.includes(product.id);
 
   return (
     <Pressable style={styles.card} onPress={() => router.push(`/productos/${product.id}`)}>
       <View style={[styles.productArt, { backgroundColor: product.color }]}>
-        <Image source={product.image} style={styles.productImage} resizeMode="contain" />
+        {product.image && <Image source={product.image} style={styles.productImage} resizeMode="contain" />}
         <Text style={[styles.artLabel, { color: product.accent }]}>{product.category}</Text>
-        <Pressable style={styles.heart} onPress={() => toggleFavorite(product.id)} hitSlop={8}>
+        <Pressable
+          style={styles.heart}
+          onPress={() => toggleFavorite(product.id)}
+          disabled={favoritesLoading}
+          hitSlop={8}
+        >
           <Text style={[styles.heartText, isFavorite && styles.favoriteText]}>{isFavorite ? '♥' : '♡'}</Text>
         </Pressable>
       </View>

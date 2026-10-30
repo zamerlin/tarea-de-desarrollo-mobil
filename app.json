@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "mi-tarjeta",
-    "slug": "mi-tarjeta",
-    "scheme": "mitarjeta",
+    "name": "mi-tienda-magica",
+    "slug": "mi-tienda-magica",
+    "scheme": "mitiendamagica",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -22,7 +22,15 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Permite elegir una foto para tu perfil.",
+          "cameraPermission": "Permite tomar una foto para tu perfil.",
+          "microphonePermission": false
+        }
+      ]
     ]
   }
 }

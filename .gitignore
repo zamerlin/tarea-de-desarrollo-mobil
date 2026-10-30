@@ -8,6 +8,7 @@ node_modules/
 dist/
 web-build/
 expo-env.d.ts
+coverage/
 
 # Native
 .kotlin/
@@ -25,13 +26,22 @@ expo-env.d.ts
 npm-debug.*
 yarn-debug.*
 yarn-error.*
+pnpm-debug.log*
+*.log
 
 # macOS
 .DS_Store
 *.pem
 
 # local env files
+.env
+.env.*
+!.env.example
 .env*.local
+
+# local reference material
+/ejemplos/
+/pdf de ejemplo/
 
 # typescript
 *.tsbuildinfo
